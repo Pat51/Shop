@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shop.Web.Data.Entities
 {
-    public class Product:IEntity
+    public class Product : IEntity
     {
         public int Id { get; set; }
 
@@ -11,7 +11,7 @@ namespace Shop.Web.Data.Entities
         [Required]
         public string Name { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = false)]
+        [DisplayFormat(DataFormatString = "{0:C2}", ApplyFormatInEditMode = true)]
         public decimal Price { get; set; }
 
         [Display(Name = "Image")]
@@ -32,5 +32,17 @@ namespace Shop.Web.Data.Entities
         public double Stock { get; set; }
 
         public User User { get; set; }
+
+        public string ImageFullPath
+        {
+            get
+            {  
+                if (string.IsNullOrEmpty(this.ImageUrl))
+               {
+                return null;
+                }
+                 return $"https://shopwebdaniel.azurewebsites.net{this.ImageUrl.Substring(1)}";
+            }
+        }
     }
 }
